@@ -1,0 +1,16 @@
+# ISOs geradas (build.sh / build-test.sh) — binários grandes, regeneráveis
+out/
+out-test/
+
+# copia de referencia do profile releng oficial, extraida de um container —
+# nao faz parte do instalador, so consulta; regenere se precisar
+releng-upstream/
+
+# vendorado em tempo de build por build.sh (rsync do repo pra dentro do profile)
+profile/airootfs/root/dna/
+profile-test/airootfs/root/dna/
+
+# artefatos de teste em QEMU (disco virtual, NVRAM, logs) — só o expect script é fonte
+qemu-test/*.qcow2
+qemu-test/*.fd
+qemu-test/*.log

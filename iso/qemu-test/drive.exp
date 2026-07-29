@@ -1,0 +1,71 @@
+#!/usr/bin/expect -f
+# Automatiza o boot da ISO de teste + bootstrap.sh numa VM QEMU descartável.
+set timeout 180
+log_file -a /home/ianptkcs/codigo/pessoal/dna/iso/qemu-test/session.log
+
+set iso    "/home/ianptkcs/codigo/pessoal/dna/iso/out-test/dna-2026.07.29-x86_64.iso"
+set disk   "/home/ianptkcs/codigo/pessoal/dna/iso/qemu-test/scratch.qcow2"
+set ovmf_code "/usr/share/OVMF/OVMF_CODE_4M.fd"
+set ovmf_vars "/home/ianptkcs/codigo/pessoal/dna/iso/qemu-test/OVMF_VARS.fd"
+
+spawn qemu-system-x86_64 \
+  -enable-kvm -m 4096 -smp 4 -cpu host -machine q35 \
+  -drive if=pflash,format=raw,readonly=on,file=$ovmf_code \
+  -drive if=pflash,format=raw,file=$ovmf_vars \
+  -drive file=$disk,if=virtio,format=qcow2 \
+  -cdrom $iso -boot order=d \
+  -serial mon:stdio -display none -no-reboot -monitor none
+
+# espera o boot terminar e cair no prompt do zsh (autologin root em ttyS0)
+expect -re {[#\$]\s*$}
+send "\r"
+expect -re {[#\$]\s*$}
+
+send "DNA_TEST_SKIP_INSTALL=1 bash /root/dna/iso/bootstrap.sh\r"
+
+# 1. confirm inicial
+expect "Quer continuar?"
+send "y\r"
+
+# 2. escolher disco (só tem 1 opção não-boot -> Enter aceita)
+expect -re {Disco de destino}
+sleep 1
+send "\r"
+
+# 3. confirmação digitada do disco
+expect -re {Digite o caminho exato}
+sleep 1
+send "/dev/vda\r"
+
+# 4. modo de GPU (offload é a 1a opção)
+expect -re {Modo de GPU}
+sleep 1
+send "\r"
+
+# 5. hostname / usuário / senha
+expect -re {Hostname da máquina}
+send "dna-test\r"
+expect -re {Nome de usuário}
+send "tester\r"
+expect -re {Senha de tester}
+send "test1234\r"
+expect -re {Confirme a senha}
+send "test1234\r"
+
+# 6. senha de criptografia LUKS
+expect -re {Senha de criptografia}
+send "test1234\r"
+expect -re {Confirme a senha de criptografia}
+send "test1234\r"
+
+# 7. esperar particionar + pacstrap + chroot + grub (pode demorar vários minutos)
+set timeout 900
+expect -re {Instalação concluída}
+
+# 8. reiniciar
+set timeout 30
+expect "Reiniciar agora?"
+send "y\r"
+
+set timeout 60
+expect eof
