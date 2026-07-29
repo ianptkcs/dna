@@ -20,6 +20,12 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=lib/common.sh
 source "$SCRIPT_DIR/lib/common.sh"
 
+# --- log persistente: tudo que sai no terminal também vai pro LOG_FILE -------
+# (stdin não é tocado, então gum confirm/choose continuam lendo do terminal normalmente)
+mkdir -p "$(dirname "$LOG_FILE")"
+exec > >(tee -a "$LOG_FILE") 2>&1
+printf '\n=== DNA install session: %s ===\n' "$(date '+%Y-%m-%d %H:%M:%S')"
+
 export GPU_MODE="offload"
 export DRY_RUN=0
 export ASSUME_YES=0
@@ -117,14 +123,19 @@ for step in "${STEPS[@]}"; do
     step_mark_done "$step"
     log_ok "$name concluído"
   else
-    log_err "$name falhou. Corrija e rode de novo — os steps anteriores ficam marcados como feitos."
+    error_box "✗ $name falhou" "" \
+      "Log completo em: $LOG_FILE" "" \
+      "Corrija o problema e rode de novo — os steps anteriores ficam marcados" \
+      "como feitos, então ele retoma direto daqui (use --only=$name pra repetir só este)."
     exit 1
   fi
   echo
 done
 
 if [ -z "$ONLY" ]; then
-  box "Instalação concluída! 🎉" "" "Rode 99-validate pra conferir NVIDIA/prime-run se ainda não rodou."
+  box "Instalação concluída! 🎉" "" \
+    "Rode 99-validate pra conferir NVIDIA/prime-run se ainda não rodou." "" \
+    "Log completo em: $LOG_FILE"
 else
   log_ok "$ONLY concluído."
 fi

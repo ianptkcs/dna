@@ -35,6 +35,11 @@ cd ~/codigo/pessoal/dna/install
   `./install.sh` de novo — ele **pula os steps já feitos** e continua de onde parou.
 - Nenhum step é destrutivo: só instala pacotes, habilita serviços e edita
   configs de forma idempotente (nunca duplica linha, nunca sobrescreve sem checar).
+- **Log persistente**: tudo que aparece no terminal também é gravado em
+  `~/.cache/dna-install/install.log` (append entre execuções, com um cabeçalho
+  de timestamp por sessão). Se um step falhar, a caixa de erro (`error_box`)
+  mostra o caminho do log pra debug — `stdin` não é tocado, então `gum
+  confirm`/`gum choose` continuam interativos normalmente.
 
 ## Flags
 

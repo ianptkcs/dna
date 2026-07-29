@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+# Reaplica o stow dos dotfiles (drift-repair) — pra quando um symlink some ou
+# um app sobrescreve um config por baixo do stow. NÃO faz o resto do instalador.
+# Uso:
+#   dna-reinstall-configs             restow de tudo (pede confirmação)
+#   dna-reinstall-configs --check     só mostra o que mudaria (stow -n), não aplica
+#   dna-reinstall-configs --yes       não pergunta confirmação
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+# shellcheck source=install/lib/common.sh
+source "$SCRIPT_DIR/install/lib/common.sh"
+# shellcheck source=install/lib/stow-packages.sh
+source "$SCRIPT_DIR/install/lib/stow-packages.sh"
+
+DOTFILES_DIR="$HOME/dotfiles"
+CHECK_ONLY=0
+export ASSUME_YES=0
+
+for arg in "$@"; do
+  case "$arg" in
+    --check)   CHECK_ONLY=1 ;;
+    --yes|-y)  ASSUME_YES=1 ;;
+    -h|--help) awk 'NR==1{next} /^#/{sub(/^# ?/,""); print; next} {exit}' "$0"; exit 0 ;;
+    *) log_err "Argumento desconhecido: $arg"; exit 1 ;;
+  esac
+done
+
+[ -d "$DOTFILES_DIR" ] || { log_err "$DOTFILES_DIR não existe — rode o instalador (90-dotfiles) primeiro."; exit 1; }
+have_cmd stow || { log_err "stow não encontrado."; exit 1; }
+
+cd "$DOTFILES_DIR"
+
+if [ "$CHECK_ONLY" = "1" ]; then
+  box "Checando drift (stow -n, nada é aplicado)" "" "Pacotes: ${STOW_PACKAGES[*]}"
+  for pkg in "${STOW_PACKAGES[@]}"; do
+    echo "── $pkg ──"
+    stow -n -v -R -t "$HOME" "$pkg" 2>&1 | grep -v '^LINK: ' || true
+  done
+  exit 0
+fi
+
+box "Reaplicar dotfiles?" "" \
+  "Vai re-stow (restow) estes pacotes: ${STOW_PACKAGES[*]}" "" \
+  "Qualquer arquivo real (não-symlink) no destino que conflite com o repo" \
+  "faz o restow desse pacote falhar — nada é sobrescrito às cegas."
+confirm "Continuar?" || { log_warn "Cancelado."; exit 0; }
+
+failed=()
+for pkg in "${STOW_PACKAGES[@]}"; do
+  if stow -R -v -t "$HOME" "$pkg"; then
+    log_ok "restow $pkg"
+  else
+    failed+=("$pkg")
+    log_warn "restow $pkg falhou (arquivo conflitante em ~) — resolva manualmente e rode de novo."
+  fi
+done
+
+if [ ${#failed[@]} -eq 0 ]; then
+  box "Tudo sincronizado! 🎉"
+else
+  error_box "Pacotes com conflito pendente" "" "${failed[*]}"
+  exit 1
+fi

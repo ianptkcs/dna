@@ -3,6 +3,7 @@
 
 STATE_DIR="${STATE_DIR:-$HOME/.cache/dna-install}"
 mkdir -p "$STATE_DIR"
+LOG_FILE="${LOG_FILE:-$STATE_DIR/install.log}"
 
 _c_reset=$'\033[0m'; _c_blue=$'\033[1;34m'; _c_green=$'\033[1;32m'
 _c_yellow=$'\033[1;33m'; _c_red=$'\033[1;31m'
@@ -54,6 +55,14 @@ box() {
     gum style --border normal --padding "1 2" --margin "1 0" --border-foreground 6 "$@"
   else
     printf -- '--- %s ---\n' "$1"; shift; printf '%s\n' "$@"
+  fi
+}
+
+error_box() {
+  if have_cmd gum; then
+    gum style --border normal --padding "1 2" --margin "1 0" --border-foreground 1 --bold "$@"
+  else
+    printf -- '!!! %s !!!\n' "$1"; shift; printf '%s\n' "$@"
   fi
 }
 

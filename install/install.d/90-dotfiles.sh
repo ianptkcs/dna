@@ -3,10 +3,10 @@
 set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 source "$SCRIPT_DIR/lib/common.sh"
+source "$SCRIPT_DIR/lib/stow-packages.sh"
 
 DOTFILES_DIR="$HOME/dotfiles"
 DOTFILES_REPO="https://github.com/ianptkcs/dotfiles.git"
-STOW_PACKAGES=(alacritty fish foot git mise niri nvim starship tmux yazi DankMaterialShell)
 
 if [ ! -d "$DOTFILES_DIR" ]; then
   spin_run "clonar dotfiles" -- git clone "$DOTFILES_REPO" "$DOTFILES_DIR"

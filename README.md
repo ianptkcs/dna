@@ -1,10 +1,14 @@
-# Arch migration prep
+# DNA — Dank · Niri · Arch
 
-Snapshot levantado em **2026-06-29** da máquina atual (Ubuntu 25.10, notebook
-Clevo "LUNAR", Intel Raptor Lake iGPU + NVIDIA RTX 4050 Mobile, niri + DankMaterialShell).
+Plano + instalador pra migrar do Ubuntu atual pro Arch Linux mantendo o mesmo
+stack (niri + DankMaterialShell), com a UI do instalador do Omarchy (via
+`gum`) mas sem herdar o resto da arquitetura dele (que é pra Hyprland).
 
-> Status: **mapeado, decisão pendente.** Nada foi migrado. Use isto como
-> rede de segurança quando/se decidir trocar.
+Snapshot original levantado em **2026-06-29** da máquina atual (Ubuntu,
+notebook Clevo "LUNAR", Intel Raptor Lake iGPU + NVIDIA RTX 4050 Mobile).
+
+> Status: **instalador pós-Arch pronto e testado; migração em si ainda não
+> rodou.** Use isto como rede de segurança quando/se decidir trocar.
 
 ## Ordem de operação (quando for migrar)
 
@@ -39,7 +43,19 @@ O `03-install-packages.sh` tem marcadores `# DECISÃO:` nos pontos afetados.
 | `02-nvidia-optimus.md` | Setup NVIDIA + Optimus no Arch (gaming + suspend + niri) |
 | `03-install-packages.sh` | Script idempotente de pós-instalação (rascunho original, superado por `install/`) |
 | `install/` | **Instalador executável** (estilo Omarchy): `install.sh` + steps numerados em `install.d/` |
+| `bin/dna-reinstall-configs` | Resync dos dotfiles (restow) sem rodar o resto do instalador — pra quando algo driftar depois |
+| `test/` | Suite de testes sem dependência externa (`./test/run.sh`) — sintaxe, parsing de flags, idempotência |
 | `raw/` | Listas brutas exatas capturadas da máquina atual |
+
+## Rodando os testes
+
+```bash
+./test/run.sh
+```
+
+Não precisa de Arch nem de root — testa sintaxe (`bash -n`), parsing de flags
+do `install.sh`, idempotência dos helpers (`ensure_line`, markers de step) e
+sanidade das listas de pacotes (sem duplicata entre pacman/AUR).
 
 ## Fatos do hardware/sistema (referência)
 
