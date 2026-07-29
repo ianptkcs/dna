@@ -1,0 +1,13 @@
+[tools]
+bun = "latest"
+elixir = "1.19.3"
+erlang = "latest"
+fzf = "latest"
+go = "latest"
+java = "21"
+node = "latest"
+prettier = "latest"
+python = "latest"
+resvg = "latest"
+typst = "latest"
+yazi = "latest"

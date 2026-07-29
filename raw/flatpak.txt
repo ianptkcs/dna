@@ -1,0 +1,27 @@
+com.dec05eba.gpu_screen_recorder	5.13.7	flathub
+com.github.scrivanolabs.scrivano	0.22.7	flathub
+com.google.AndroidStudio	2026.1.1.10	flathub
+com.spotify.Client	1.2.92.147.g5b8f9367	flathub
+com.stremio.Stremio	4.4.168	flathub
+net.ankiweb.Anki	25.09.05	flathub
+org.freedesktop.Platform	freedesktop-sdk-24.08.33	flathub
+org.freedesktop.Platform	freedesktop-sdk-25.08.13	flathub
+org.freedesktop.Platform.GL.default	26.0.6	flathub
+org.freedesktop.Platform.GL.default	26.0.6	flathub
+org.freedesktop.Platform.GL.default	26.0.8	flathub
+org.freedesktop.Platform.GL.default	26.0.8	flathub
+org.freedesktop.Platform.GL.nvidia-595-71-05		flathub
+org.freedesktop.Platform.VAAPI.Intel		flathub
+org.freedesktop.Platform.VAAPI.Intel		flathub
+org.freedesktop.Platform.VAAPI.nvidia		flathub
+org.freedesktop.Platform.codecs-extra		flathub
+org.freedesktop.Platform.openh264	2.5.1	flathub
+org.freedesktop.Sdk	freedesktop-sdk-25.08.13	flathub
+org.gnome.Platform		flathub
+org.kde.KStyle.Adwaita		flathub
+org.kde.Platform		flathub
+org.kde.Platform		flathub
+org.kde.Platform		flathub
+org.kde.PlatformTheme.QGnomePlatform		flathub
+org.kde.WaylandDecoration.QAdwaitaDecorations		flathub
+org.telegram.desktop	6.9.3	flathub
