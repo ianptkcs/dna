@@ -8,7 +8,7 @@ hardware real.
 
 [![Shell](https://img.shields.io/badge/shell-bash-89e051?style=flat-square&logo=gnubash&logoColor=white)](install/install.sh)
 [![Arch Linux](https://img.shields.io/badge/target-Arch%20Linux-1793D1?style=flat-square&logo=archlinux&logoColor=white)](https://archlinux.org)
-[![License: PolyForm Noncommercial](https://img.shields.io/badge/license-PolyForm%20Noncommercial-blue?style=flat-square)](LICENSE)
+[![License: AGPL-3.0](https://img.shields.io/badge/license-AGPL--3.0-blue?style=flat-square)](LICENSE)
 
 </div>
 
@@ -98,6 +98,6 @@ sanidade das listas de pacotes (sem duplicata entre pacman/AUR).
 
 ## Licença
 
-[PolyForm Noncommercial License 1.0.0](LICENSE) — uso livre pra fins não
-comerciais (estudo, hobby, contribuição). Uso comercial requer permissão
-do autor.
+[GNU AGPL-3.0](LICENSE) — livre e open source. Se você distribuir uma
+versão modificada deste instalador, também precisa disponibilizar o
+código-fonte modificado sob a mesma licença.
