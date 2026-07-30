@@ -1,4 +1,20 @@
+<div align="center">
+
 # DNA — Dank · Niri · Arch
+
+**Instalador Arch Linux com UI estilo Omarchy (`gum`), pro stack niri +
+DankMaterialShell** — testado em ISO bootável via QEMU antes de rodar em
+hardware real.
+
+[![Shell](https://img.shields.io/badge/shell-bash-89e051?style=flat-square&logo=gnubash&logoColor=white)](install/install.sh)
+[![Arch Linux](https://img.shields.io/badge/target-Arch%20Linux-1793D1?style=flat-square&logo=archlinux&logoColor=white)](https://archlinux.org)
+[![License: PolyForm Noncommercial](https://img.shields.io/badge/license-PolyForm%20Noncommercial-blue?style=flat-square)](LICENSE)
+
+</div>
+
+---
+
+## O que é
 
 Plano + instalador pra migrar do Ubuntu atual pro Arch Linux mantendo o mesmo
 stack (niri + DankMaterialShell), com a UI do instalador do Omarchy (via
@@ -7,8 +23,18 @@ stack (niri + DankMaterialShell), com a UI do instalador do Omarchy (via
 Snapshot original levantado em **2026-06-29** da máquina atual (Ubuntu,
 notebook Clevo "LUNAR", Intel Raptor Lake iGPU + NVIDIA RTX 4050 Mobile).
 
-> Status: **instalador pós-Arch pronto e testado; migração em si ainda não
+> Status: **instalador pós-Arch pronto e testado (incluindo build de uma ISO
+> bootável validada em QEMU); migração em si na máquina real ainda não
 > rodou.** Use isto como rede de segurança quando/se decidir trocar.
+
+## Índice
+
+- [Ordem de operação](#ordem-de-operação-quando-for-migrar)
+- [Decisão em aberto](#decisão-que-ainda-precisa-ser-tomada)
+- [Arquivos](#arquivos)
+- [Rodando os testes](#rodando-os-testes)
+- [Hardware/sistema de referência](#fatos-do-hardwaresistema-referência)
+- [Licença](#licença)
 
 ## Ordem de operação (quando for migrar)
 
@@ -44,6 +70,7 @@ O `03-install-packages.sh` tem marcadores `# DECISÃO:` nos pontos afetados.
 | `03-install-packages.sh` | Script idempotente de pós-instalação (rascunho original, superado por `install/`) |
 | `install/` | **Instalador executável** (estilo Omarchy): `install.sh` + steps numerados em `install.d/` |
 | `bin/dna-reinstall-configs` | Resync dos dotfiles (restow) sem rodar o resto do instalador — pra quando algo driftar depois |
+| `iso/` | Build da ISO archiso+LUKS2 customizada, testada em QEMU |
 | `test/` | Suite de testes sem dependência externa (`./test/run.sh`) — sintaxe, parsing de flags, idempotência |
 | `raw/` | Listas brutas exatas capturadas da máquina atual |
 
@@ -68,3 +95,9 @@ sanidade das listas de pacotes (sem duplicata entre pacman/AUR).
 - **Locale**: `en_US.UTF-8`
 - **Compositor**: niri + DankMaterialShell (`dms`) + waybar — ecossistema **DankLinux** (AvengeMedia)
 - **Input method**: ibus + tabelas Cangjie/Chewing/Pinyin (mandarim)
+
+## Licença
+
+[PolyForm Noncommercial License 1.0.0](LICENSE) — uso livre pra fins não
+comerciais (estudo, hobby, contribuição). Uso comercial requer permissão
+do autor.
