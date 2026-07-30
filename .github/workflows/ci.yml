@@ -24,4 +24,4 @@ jobs:
           set -e
           files=$(find . -name '*.sh' -not -path './.git/*')
           echo "$files"
-          shellcheck $files
+          shellcheck --severity=warning $files

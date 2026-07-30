@@ -4,7 +4,8 @@
 set -uo pipefail
 
 TEST_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-export DNA_ROOT="$(cd "$TEST_DIR/.." && pwd)"
+DNA_ROOT="$(cd "$TEST_DIR/.." && pwd)"
+export DNA_ROOT
 
 source "$TEST_DIR/lib/harness.sh"
 
