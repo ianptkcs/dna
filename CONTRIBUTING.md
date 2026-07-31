@@ -1,4 +1,4 @@
-# Contribuindo com o DNA
+# Contribuindo com o TabelaOS
 
 Obrigado pelo interesse. Antes de abrir um PR, dá uma olhada no `README.md`
 pra entender o que o projeto é (instalador Arch Linux estilo Omarchy pro

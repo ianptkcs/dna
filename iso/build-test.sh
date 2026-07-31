@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Builda a variante de TESTE da ISO (console serial + autologin ttyS0), a partir
-# de profile-test/ (que já deve ter o airootfs/root/dna vendorado por build.sh).
+# de profile-test/ (que já deve ter o airootfs/root/tabelaos vendorado por build.sh).
 # NÃO é a ISO real — só pra automatizar testes em QEMU via expect.
 set -euo pipefail
 

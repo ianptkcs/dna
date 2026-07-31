@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# DNA bootstrap — roda a partir da ISO live (via boot param script=/root/dna/iso/bootstrap.sh).
+# TabelaOS bootstrap — roda a partir da ISO live (via boot param script=/root/tabelaos/iso/bootstrap.sh).
 # Particiona um disco DO ZERO (ESP + LUKS2 root), instala o Arch base, configura
 # GRUB+criptografia, e entrega pro install/install.sh de dentro do chroot.
 #
@@ -8,12 +8,12 @@
 # é um fluxo linear único, pra uma máquina nova.
 set -euo pipefail
 
-DNA_REPO_ROOT="/root/dna"
+TABELAOS_REPO_ROOT="/root/tabelaos"
 # shellcheck source=../install/lib/common.sh
-source "$DNA_REPO_ROOT/install/lib/common.sh"
+source "$TABELAOS_REPO_ROOT/install/lib/common.sh"
 
 banner
-box "Bem-vindo ao instalador DNA" "" \
+box "Bem-vindo ao instalador TabelaOS" "" \
   "Vou instalar Arch Linux + niri + DankMaterialShell no disco que você" \
   "escolher a seguir." "" \
   "⚠ TODOS OS DADOS no disco escolhido serão APAGADOS." "" \
@@ -51,7 +51,7 @@ esac
 # --- 2. GPU mode + hostname/usuário (perguntado aqui, repassado pro install.sh) --
 GPU_MODE="$(choose_one 'Modo de GPU (offload = PRIME, recomendado)' offload dgpu)"
 HOSTNAME_IN="$(gum input --placeholder 'lunar' --header 'Hostname da máquina')"
-DNA_HOSTNAME="${HOSTNAME_IN:-lunar}"
+TABELAOS_HOSTNAME="${HOSTNAME_IN:-lunar}"
 USERNAME="$(gum input --placeholder 'ianptkcs' --header 'Nome de usuário')"
 [ -n "$USERNAME" ] || { log_err "Usuário não pode ser vazio."; exit 1; }
 USERPASS1="$(gum input --password --header "Senha de $USERNAME")"
@@ -89,7 +89,7 @@ pacstrap -K /mnt "${BASE_PKGS[@]}"
 genfstab -U /mnt >> /mnt/etc/fstab
 
 # --- 5. hostname / locale / usuário ------------------------------------------
-echo "$DNA_HOSTNAME" > /mnt/etc/hostname
+echo "$TABELAOS_HOSTNAME" > /mnt/etc/hostname
 arch-chroot /mnt ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
 arch-chroot /mnt hwclock --systohc
 printf 'en_US.UTF-8 UTF-8\npt_BR.UTF-8 UTF-8\n' >> /mnt/etc/locale.gen
@@ -108,24 +108,24 @@ ROOT_UUID="$(blkid -s UUID -o value "$ROOT")"
 sed -i -E 's/^HOOKS=\((.*)\bfilesystems\b(.*)\)/HOOKS=(\1encrypt filesystems\2)/' /mnt/etc/mkinitcpio.conf
 arch-chroot /mnt mkinitcpio -P
 
-arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=DNA
+arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=TabelaOS
 sed -i "s#^GRUB_CMDLINE_LINUX=\"\"#GRUB_CMDLINE_LINUX=\"cryptdevice=UUID=${ROOT_UUID}:cryptroot root=/dev/mapper/cryptroot\"#" /mnt/etc/default/grub
 echo 'GRUB_ENABLE_CRYPTODISK=y' >> /mnt/etc/default/grub
 arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
 
 arch-chroot /mnt systemctl enable NetworkManager
 
-# --- 7. copiar o repo dna pro usuário e rodar o install/install.sh -----------
-cp -r "$DNA_REPO_ROOT" "/mnt/home/$USERNAME/dna"
-arch-chroot /mnt chown -R "$USERNAME:$USERNAME" "/home/$USERNAME/dna"
+# --- 7. copiar o repo tabelaos pro usuário e rodar o install/install.sh -----------
+cp -r "$TABELAOS_REPO_ROOT" "/mnt/home/$USERNAME/tabelaos"
+arch-chroot /mnt chown -R "$USERNAME:$USERNAME" "/home/$USERNAME/tabelaos"
 
-if [ "${DNA_TEST_SKIP_INSTALL:-0}" = "1" ]; then
-  log_warn "DNA_TEST_SKIP_INSTALL=1 — pulando install/install.sh (só teste de disco/boot)."
+if [ "${TABELAOS_TEST_SKIP_INSTALL:-0}" = "1" ]; then
+  log_warn "TABELAOS_TEST_SKIP_INSTALL=1 — pulando install/install.sh (só teste de disco/boot)."
 else
-  box "Base do Arch pronta. Rodando o instalador DNA (pacotes/niri/dank/etc) —" \
+  box "Base do Arch pronta. Rodando o instalador TabelaOS (pacotes/niri/dank/etc) —" \
     "vai pedir a senha do $USERNAME pro sudo."
   arch-chroot /mnt runuser -u "$USERNAME" -- bash -lc \
-    "cd /home/$USERNAME/dna/install && ./install.sh --yes --gpu-mode=$GPU_MODE"
+    "cd /home/$USERNAME/tabelaos/install && ./install.sh --yes --gpu-mode=$GPU_MODE"
 fi
 
 # --- 8. desmontar e reiniciar -------------------------------------------------

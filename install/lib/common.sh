@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Shared helpers for install.d/*.sh steps. Sourced, not executed directly.
 
-STATE_DIR="${STATE_DIR:-$HOME/.cache/dna-install}"
+STATE_DIR="${STATE_DIR:-$HOME/.cache/tabelaos-install}"
 mkdir -p "$STATE_DIR"
 LOG_FILE="${LOG_FILE:-$STATE_DIR/install.log}"
 
@@ -69,9 +69,9 @@ error_box() {
 banner() {
   if have_cmd gum; then
     gum style --border double --border-foreground 6 --padding "1 4" --margin "1 0" \
-      --align center --bold "D N A" "" "Dank · Niri · Arch"
+      --align center --bold "TabelaOS"
   else
-    printf '=== DNA — Dank · Niri · Arch ===\n'
+    printf '=== TabelaOS ===\n'
   fi
 }
 

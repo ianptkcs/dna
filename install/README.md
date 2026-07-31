@@ -1,4 +1,4 @@
-# DNA (Dank · Niri · Arch) — instalador pós-Arch
+# TabelaOS — instalador pós-Arch
 
 Um comando, idempotente, retomável, com a mesma "cara" do instalador do Omarchy
 (mesma lib de UI: [gum](https://github.com/charmbracelet/gum)), mas pro seu
@@ -6,8 +6,8 @@ próprio stack — niri + DankMaterialShell, não Hyprland. Roda **depois** do
 Arch base instalado (pacstrap + GRUB EFI + usuário criado), num shell com sudo.
 
 ```bash
-git clone <url-do-repo-dna> ~/codigo/pessoal/dna
-cd ~/codigo/pessoal/dna/install
+git clone <url-do-repo-tabelaos> ~/codigo/pessoal/tabelaos
+cd ~/codigo/pessoal/tabelaos/install
 ./install.sh
 ```
 
@@ -16,7 +16,7 @@ cd ~/codigo/pessoal/dna/install
 - `gum` é instalado automaticamente no primeiro run (bootstrap antes de tudo,
   igual o Omarchy faz — ver `install.sh`). Sem ele, tudo cai num fallback de
   texto simples (`lib/common.sh`), então o script nunca trava por falta de gum.
-- Na rodada completa (sem `--only`) você vê: banner **DNA**, escolha interativa
+- Na rodada completa (sem `--only`) você vê: banner **TabelaOS**, escolha interativa
   de modo de GPU (`gum choose`, se não passou `--gpu-mode`), uma caixa
   resumindo o plano e uma confirmação (`gum confirm`) antes de começar.
 - `--only=<step>` pula banner/confirm — modo rápido pra debugar um step isolado.
@@ -30,13 +30,13 @@ cd ~/codigo/pessoal/dna/install
 ## Como funciona
 
 - `install.sh` roda cada `install.d/NN-nome.sh` em ordem.
-- Cada step marca conclusão em `~/.cache/dna-install/<nome>.done`.
+- Cada step marca conclusão em `~/.cache/tabelaos-install/<nome>.done`.
   Se algo falhar no meio (ex.: rede caiu no meio do `pacman -S`), corrija e rode
   `./install.sh` de novo — ele **pula os steps já feitos** e continua de onde parou.
 - Nenhum step é destrutivo: só instala pacotes, habilita serviços e edita
   configs de forma idempotente (nunca duplica linha, nunca sobrescreve sem checar).
 - **Log persistente**: tudo que aparece no terminal também é gravado em
-  `~/.cache/dna-install/install.log` (append entre execuções, com um cabeçalho
+  `~/.cache/tabelaos-install/install.log` (append entre execuções, com um cabeçalho
   de timestamp por sessão). Se um step falhar, a caixa de erro (`error_box`)
   mostra o caminho do log pra debug — `stdin` não é tocado, então `gum
   confirm`/`gum choose` continuam interativos normalmente.

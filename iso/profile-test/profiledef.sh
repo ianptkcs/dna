@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # shellcheck disable=SC2034
 
-iso_name="dna"
-iso_label="DNA_$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y%m)"
-iso_publisher="DNA (Dank · Niri · Arch) <https://github.com/ianptkcs/dna>"
-iso_application="DNA installer — Dank + Niri + Arch"
+iso_name="tabelaos"
+iso_label="TABELAOS_$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y%m)"
+iso_publisher="TabelaOS <https://github.com/TabelaDev/tabelaos>"
+iso_application="TabelaOS installer"
 iso_version="$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y.%m.%d)"
 install_dir="arch"
 buildmodes=('iso')
@@ -19,7 +19,7 @@ file_permissions=(
   ["/root"]="0:0:750"
   ["/root/.automated_script.sh"]="0:0:755"
   ["/root/.gnupg"]="0:0:700"
-  ["/root/dna/iso/bootstrap.sh"]="0:0:755"
+  ["/root/tabelaos/iso/bootstrap.sh"]="0:0:755"
   ["/usr/local/bin/choose-mirror"]="0:0:755"
   ["/usr/local/bin/Installation_guide"]="0:0:755"
   ["/usr/local/bin/livecd-sound"]="0:0:755"

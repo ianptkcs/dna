@@ -2,9 +2,9 @@
 # Reaplica o stow dos dotfiles (drift-repair) — pra quando um symlink some ou
 # um app sobrescreve um config por baixo do stow. NÃO faz o resto do instalador.
 # Uso:
-#   dna-reinstall-configs             restow de tudo (pede confirmação)
-#   dna-reinstall-configs --check     só mostra o que mudaria (stow -n), não aplica
-#   dna-reinstall-configs --yes       não pergunta confirmação
+#   tabelaos-reinstall-configs             restow de tudo (pede confirmação)
+#   tabelaos-reinstall-configs --check     só mostra o que mudaria (stow -n), não aplica
+#   tabelaos-reinstall-configs --yes       não pergunta confirmação
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"

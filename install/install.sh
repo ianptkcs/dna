@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# DNA (Dank · Niri · Arch) — instalador pós-Arch, orquestra install.d/*.sh em ordem.
+# TabelaOS — instalador pós-Arch, orquestra install.d/*.sh em ordem.
 # UI bonitinha via gum (github.com/charmbracelet/gum, instalado automaticamente
 # no primeiro run) — mesma lib que dá a "cara" do instalador do Omarchy.
 # Uso:
@@ -24,7 +24,7 @@ source "$SCRIPT_DIR/lib/common.sh"
 # (stdin não é tocado, então gum confirm/choose continuam lendo do terminal normalmente)
 mkdir -p "$(dirname "$LOG_FILE")"
 exec > >(tee -a "$LOG_FILE") 2>&1
-printf '\n=== DNA install session: %s ===\n' "$(date '+%Y-%m-%d %H:%M:%S')"
+printf '\n=== TabelaOS install session: %s ===\n' "$(date '+%Y-%m-%d %H:%M:%S')"
 
 export GPU_MODE="offload"
 export DRY_RUN=0

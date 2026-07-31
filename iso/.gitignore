@@ -7,8 +7,8 @@ out-test/
 releng-upstream/
 
 # vendorado em tempo de build por build.sh (rsync do repo pra dentro do profile)
-profile/airootfs/root/dna/
-profile-test/airootfs/root/dna/
+profile/airootfs/root/tabelaos/
+profile-test/airootfs/root/tabelaos/
 
 # artefatos de teste em QEMU (disco virtual, NVRAM, logs) — só o expect script é fonte
 qemu-test/*.qcow2

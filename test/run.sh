@@ -4,8 +4,8 @@
 set -uo pipefail
 
 TEST_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-DNA_ROOT="$(cd "$TEST_DIR/.." && pwd)"
-export DNA_ROOT
+TABELAOS_ROOT="$(cd "$TEST_DIR/.." && pwd)"
+export TABELAOS_ROOT
 
 source "$TEST_DIR/lib/harness.sh"
 

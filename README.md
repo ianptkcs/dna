@@ -1,6 +1,6 @@
 <div align="center">
 
-# DNA — Dank · Niri · Arch
+# TabelaOS
 
 **Instalador Arch Linux com UI estilo Omarchy (`gum`), pro stack niri +
 DankMaterialShell** — testado em ISO bootável via QEMU antes de rodar em
@@ -41,7 +41,7 @@ notebook Clevo "LUNAR", Intel Raptor Lake iGPU + NVIDIA RTX 4050 Mobile).
 1. **`00-backup-checklist.md`** — fazer backup de segredos + dados + dotfiles.
    Empurrar os dotfiles pro GitHub é o passo nº 1.
 2. Instalar o Arch (base + GRUB EFI + `linux` + `linux-lts`).
-3. **`install/install.sh`** ("DNA" — Dank · Niri · Arch) — instalador único,
+3. **`install/install.sh`** ("TabelaOS") — instalador único,
    idempotente, com a UI do Omarchy (gum) mas pro stack niri+DankMaterialShell:
    cobre multilib, pacotes pacman+AUR, NVIDIA/Optimus (a parte mais delicada),
    flatpak, serviços, shell, stow dos dotfiles e mise. Ver `install/README.md`
@@ -69,7 +69,7 @@ O `03-install-packages.sh` tem marcadores `# DECISÃO:` nos pontos afetados.
 | `02-nvidia-optimus.md` | Setup NVIDIA + Optimus no Arch (gaming + suspend + niri) |
 | `03-install-packages.sh` | Script idempotente de pós-instalação (rascunho original, superado por `install/`) |
 | `install/` | **Instalador executável** (estilo Omarchy): `install.sh` + steps numerados em `install.d/` |
-| `bin/dna-reinstall-configs` | Resync dos dotfiles (restow) sem rodar o resto do instalador — pra quando algo driftar depois |
+| `bin/tabelaos-reinstall-configs` | Resync dos dotfiles (restow) sem rodar o resto do instalador — pra quando algo driftar depois |
 | `iso/` | Build da ISO archiso+LUKS2 customizada, testada em QEMU |
 | `test/` | Suite de testes sem dependência externa (`./test/run.sh`) — sintaxe, parsing de flags, idempotência |
 | `raw/` | Listas brutas exatas capturadas da máquina atual |

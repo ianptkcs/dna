@@ -8,7 +8,7 @@ test_ensure_line_is_idempotent() {
   touch "$f"
   (
     STATE_DIR="$statedir"
-    source "$DNA_ROOT/install/lib/common.sh"
+    source "$TABELAOS_ROOT/install/lib/common.sh"
     # ensure_line usa sudo tee -a; sem sudo disponível em teste, sobrescrevemos por uma versão sem sudo
     ensure_line() { local file="$1" line="$2"; grep -qxF "$line" "$file" 2>/dev/null || echo "$line" >>"$file"; }
     ensure_line "$f" "minha-linha"
@@ -26,7 +26,7 @@ test_step_done_markers() {
   statedir="$(mktemp -d)"
   out="$(
     STATE_DIR="$statedir"
-    source "$DNA_ROOT/install/lib/common.sh"
+    source "$TABELAOS_ROOT/install/lib/common.sh"
     step_done "/x/50-nvidia.sh" && echo "done-antes" || echo "nao-feito-antes"
     step_mark_done "/x/50-nvidia.sh"
     step_done "/x/50-nvidia.sh" && echo "done-depois" || echo "nao-feito-depois"
@@ -43,7 +43,7 @@ test_dry_run_does_not_execute() {
   out="$(
     STATE_DIR="$statedir"
     DRY_RUN=1
-    source "$DNA_ROOT/install/lib/common.sh"
+    source "$TABELAOS_ROOT/install/lib/common.sh"
     run "criar marker" -- touch "$marker"
   )"
   local marker_exists=1
@@ -59,7 +59,7 @@ test_run_executes_when_not_dry_run() {
   marker="$statedir/marker"
   (
     STATE_DIR="$statedir"
-    source "$DNA_ROOT/install/lib/common.sh"
+    source "$TABELAOS_ROOT/install/lib/common.sh"
     run "criar marker" -- touch "$marker"
   ) >/dev/null
   assert_file_exists "$marker"
@@ -72,7 +72,7 @@ test_choose_one_respects_assume_yes() {
   out="$(
     STATE_DIR="$statedir"
     ASSUME_YES=1
-    source "$DNA_ROOT/install/lib/common.sh"
+    source "$TABELAOS_ROOT/install/lib/common.sh"
     choose_one "modo?" offload dgpu
   )"
   rm -rf "$statedir"
@@ -85,7 +85,7 @@ test_confirm_respects_assume_yes() {
   (
     STATE_DIR="$statedir"
     ASSUME_YES=1
-    source "$DNA_ROOT/install/lib/common.sh"
+    source "$TABELAOS_ROOT/install/lib/common.sh"
     confirm "continuar?"
   )
   rc=$?

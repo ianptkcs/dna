@@ -1,5 +1,5 @@
 name: Bug report
-description: Reportar um comportamento incorreto no DNA
+description: Reportar um comportamento incorreto no TabelaOS
 labels: ['bug']
 body:
   - type: textarea
@@ -30,6 +30,6 @@ body:
     id: logs
     attributes:
       label: Logs / screenshots
-      description: Cole aqui o log relevante (ex. `~/.cache/dna-install/install.log`) ou screenshots. Nunca cole segredos, tokens ou dados pessoais.
+      description: Cole aqui o log relevante (ex. `~/.cache/tabelaos-install/install.log`) ou screenshots. Nunca cole segredos, tokens ou dados pessoais.
     validations:
       required: false

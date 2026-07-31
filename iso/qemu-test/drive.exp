@@ -1,12 +1,12 @@
 #!/usr/bin/expect -f
 # Automatiza o boot da ISO de teste + bootstrap.sh numa VM QEMU descartável.
 set timeout 180
-log_file -a /home/ianptkcs/codigo/pessoal/dna/iso/qemu-test/session.log
+log_file -a /home/ianptkcs/codigo/pessoal/tabelaos/iso/qemu-test/session.log
 
-set iso    "/home/ianptkcs/codigo/pessoal/dna/iso/out-test/dna-2026.07.29-x86_64.iso"
-set disk   "/home/ianptkcs/codigo/pessoal/dna/iso/qemu-test/scratch.qcow2"
+set iso    "/home/ianptkcs/codigo/pessoal/tabelaos/iso/out-test/tabelaos-2026.07.29-x86_64.iso"
+set disk   "/home/ianptkcs/codigo/pessoal/tabelaos/iso/qemu-test/scratch.qcow2"
 set ovmf_code "/usr/share/OVMF/OVMF_CODE_4M.fd"
-set ovmf_vars "/home/ianptkcs/codigo/pessoal/dna/iso/qemu-test/OVMF_VARS.fd"
+set ovmf_vars "/home/ianptkcs/codigo/pessoal/tabelaos/iso/qemu-test/OVMF_VARS.fd"
 
 spawn qemu-system-x86_64 \
   -enable-kvm -m 4096 -smp 4 -cpu host -machine q35 \
@@ -21,7 +21,7 @@ expect -re {[#\$]\s*$}
 send "\r"
 expect -re {[#\$]\s*$}
 
-send "DNA_TEST_SKIP_INSTALL=1 bash /root/dna/iso/bootstrap.sh\r"
+send "TABELAOS_TEST_SKIP_INSTALL=1 bash /root/tabelaos/iso/bootstrap.sh\r"
 
 # 1. confirm inicial
 expect "Quer continuar?"
@@ -44,7 +44,7 @@ send "\r"
 
 # 5. hostname / usuário / senha
 expect -re {Hostname da máquina}
-send "dna-test\r"
+send "tabelaos-test\r"
 expect -re {Nome de usuário}
 send "tester\r"
 expect -re {Senha de tester}
