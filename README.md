@@ -9,6 +9,7 @@ hardware real.
 [![Shell](https://img.shields.io/badge/shell-bash-89e051?style=flat-square&logo=gnubash&logoColor=white)](install/install.sh)
 [![Arch Linux](https://img.shields.io/badge/target-Arch%20Linux-1793D1?style=flat-square&logo=archlinux&logoColor=white)](https://archlinux.org)
 [![License: AGPL-3.0](https://img.shields.io/badge/license-AGPL--3.0-blue?style=flat-square)](LICENSE)
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/ianptkcs)
 
 </div>
 
@@ -95,6 +96,17 @@ sanidade das listas de pacotes (sem duplicata entre pacman/AUR).
 - **Locale**: `en_US.UTF-8`
 - **Compositor**: niri + DankMaterialShell (`dms`) + waybar — ecossistema **DankLinux** (AvengeMedia)
 - **Input method**: ibus + tabelas Cangjie/Chewing/Pinyin (mandarim)
+
+## Apoie o projeto
+
+- **Global**: [ko-fi.com/ianptkcs](https://ko-fi.com/ianptkcs)
+- **Brasil (Pix)**: escaneie o QR abaixo ou copie o código
+
+  ![Pix QR](pix-qr.png)
+
+  ```
+  00020126580014BR.GOV.BCB.PIX01365ad933b0-dcdc-4525-a736-0759902aeec65204000053039865802BR5925Ian Patrick da Costa Soar6009SAO PAULO62140510tQA85x6Dov63041FB6
+  ```
 
 ## Licença
 
